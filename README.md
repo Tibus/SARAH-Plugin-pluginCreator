@@ -45,6 +45,7 @@ La troisieme colonne représente les possibilités de bouts de phrase après le 
 Il y a 5 sous-groupe possible.
 
 Pour créer les phrases d'allumage de lampe, on fera donc : 
+
 | Group         | SubGroup      | SubGroup  |
 | ------------- |:-------------:| -----:|
 | Allume la lampe; Allume la lumière      |  |  |

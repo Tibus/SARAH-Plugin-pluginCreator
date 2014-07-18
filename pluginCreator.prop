@@ -3,7 +3,7 @@
     "pluginCreator"  : {
       "description": "Plugin de création de phrases/actions depuis un fichier excel sur google docs",
       "version" : "1",
-	  "googleDoc" : "https://docs.google.com/spreadsheet/pub?key=0AmgsAcIbiLOtdGhjX1cxWkxEaEtXMVctNjBJY043ZkE&output=txt"
+      "googleDoc" : "----"
     }
   }
 }

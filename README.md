@@ -149,7 +149,7 @@ Comme les variables local, une colonne sert au callback exprimé par le client S
 Par exemple, dans ce tableau : 
 
 | Group         | SubGroup      | SubGroup  | CallBack |
-| ------------- |:-------------:|: -----:| --- :|
+| ------------- |:-------------:|:---------:|:--------:|
 | Allume la lampe |  |  | |
 | | du salon | -- | lampe du salon allumée |
 | |  | à 0 pourcent  | lampe allumée à 0 pourcent |

@@ -55,16 +55,34 @@ Pour créer les phrases d'allumage de lampe, on fera donc :
 | | de la chambre |  |
 
 Les phrases possibles seront donc : 
- Allume la lampe du salon à 0 pourcent
- Allume la lampe du salon à 10 pourcent
- Allume la lampe de la chambre
- Allume la lumière du salon à 0 pourcent
- Allume la lumière du salon à 10 pourcent
- Allume la lumière de la chambre
+
+ - Allume la lampe du salon à 0 pourcent
+ - Allume la lampe du salon à 10 pourcent
+ - Allume la lampe de la chambre
+ - Allume la lumière du salon à 0 pourcent
+ - Allume la lumière du salon à 10 pourcent
+ - Allume la lumière de la chambre
  
-Si vous voulez qu'un sous-group soit facultatif, il suffit que le premier enfant de ce sous-group sois "--"
- 
- 
+Si vous voulez qu'un sous-group soit facultatif, il suffit que le premier enfant de ce sous-group sois "--" :
+
+| Group         | SubGroup      | SubGroup  |
+| ------------- |:-------------:| -----:|
+| Allume la lampe |  |  |
+| | du salon | -- |
+| |  | à 0 pourcent  |
+| |  | à 10 pourcent  |
+| | de la chambre |  |
+
+Vous pourrez alors dire 
+
+ - Allume la lampe du salon
+
+
+#### Gestion des actions
+Chaque ligne/group/sous group peut avoir une action
+ * Envoi d'une requete HTTP/HTTPS,...
+ * Appel d'un autre plugin Sarah
+ * Appel de la fonction askme pour demander confirmation ou précision et appeler une action en fonction de la réponse.
 
 #### Gestion des variables
 Vous pouvez utiliser des variables dans les actions et/ou dans les Callback.

@@ -144,6 +144,41 @@ Et pour l'utiliser dans une requète par exemple : ```url : $$domoticzURL/?id=@l
 #### définition d'une variable local
 Le même principe que les variables global mais par ligne. Une colonne Variable est destiné à la création de variable par ligne. les varaibles doivent être des clé/valeurs séparé par un egal. Vous pouvez définir plusieur variable avec un point-virgule. par exemple ```lid=1; level=100```
 
-### Hierarchie des actions et des variables
-Les actions et les variables ont une hiérarchie simple...
-Si aucunes action n'est définie pour un ligne, c'est l'action du groupe parents qui sera appelé.
+### Gestion des callbacks
+Comme les variables local, une colonne sert au callback exprimé par le client Sarah à l'appel de la ligne.
+Par exemple, dans ce tableau : 
+
+| Group         | SubGroup      | SubGroup  | CallBack |
+| ------------- |:-------------:|: -----:| --- :|
+| Allume la lampe |  |  | |
+| | du salon | -- | lampe du salon allumée |
+| |  | à 0 pourcent  | lampe allumée à 0 pourcent |
+| |  | à 10 pourcent  | lampe allumée à 0 pourcent |
+| | de la chambre |  | lampe de la chambre allumée |
+
+si je dis Allume la lampe de la chambre, Sarah dira "lampe de la chambre allumée
+
+### Hierarchie des actions, des variables et des callbacks
+Les actions, les variables et les callbacks ont une hiérarchie simple...
+
+Tableau d'exemple : 
+
+| Group           | SubGroup      | SubGroup       | Action   | Variable | Callback        |
+| --------------- |:-------------:|:--------------:|:--------:|:--------:|:---------------:|
+| Allume la lampe |               |                | Action 1 |id=0; g=1 | Lampe allumée   |
+|                 | du salon      | --             | Action 2 |id=1      | Lampe du salon allumée   |
+|                 |               | à 0 pourcent   |          |          | Lampe du salon allumée à 0 pourcent  |
+|                 |               | à 10 pourcent  | Action 3 |id=3      |    |
+|                 | de la chambre |                |          |          |    |
+
+
+ - Si aucunes action n'est définie pour une ligne, c'est l'action du groupe parents qui sera appelé.
+ - Si aucuns callback n'est défini pour une ligne, c'est le callback du parents qui sera dis
+ - toutes les variables des groupes parents sont utilisé et son écrasé par les enfant.
+ 
+mise en cituation :
+```Allume la lampe du salon à 10 pourcent```
+ - variable : id=3; g=1 (écrase id=1 et id=0 récupère g=1 depuis sont grand parent)
+ - Action : Action 3
+ - Callback : Lampe du salon allumée (récupéré depuis son parent direct)
+ 

@@ -177,8 +177,26 @@ Tableau d'exemple :
  - toutes les variables des groupes parents sont utilisé et son écrasé par les enfant.
  
 mise en cituation :
+
+```Allume la lampe```
+ - rien n'est fait car le premier sous-groupe est obligatoire
+
+```Allume la lampe du salon```
+ - variable : id=1; g=1 (écrase id=0 récupère g=1 depuis sont parent)
+ - Action : Action 2
+ - Callback : Lampe du salon allumée
+
+```Allume la lampe du salon à 0 pourcent```
+ - variable : id=1; g=1 (récupère id=1 de son parent, écrase id=0 récupère g=1 depuis sont grand parent)
+ - Action : Action 2
+ - Callback : Lampe du salon allumée à 0 pourcent
+
 ```Allume la lampe du salon à 10 pourcent```
  - variable : id=3; g=1 (écrase id=1 et id=0 récupère g=1 depuis sont grand parent)
  - Action : Action 3
  - Callback : Lampe du salon allumée (récupéré depuis son parent direct)
  
+```Allume de la chambre```
+ - variable : id=0; g=1 (récupéré par son parent)
+ - Action : Action 1 (récupéré par son parent)
+ - Callback : Lampe allumée  (récupéré par son parent)

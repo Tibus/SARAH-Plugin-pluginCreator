@@ -1,7 +1,7 @@
 {
   "modules" : { 
     "pluginCreator"  : {
-      "description": "Plugin de création de phrases/actions depuis un fichier excel sur google docs",
+      "description": "Plugin de creation de phrases/actions depuis un fichier excel sur google docs",
       "version" : "1.3",
       "googleDoc" : "----"
     }

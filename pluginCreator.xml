@@ -5,7 +5,7 @@
 
 		<item>Sarah</item>
 		<one-of>
-			<item>mets a jour le createur de plugin<tag>out.action.command="update"</tag></item>
+			<item>mets a jour le créateur de plugin<tag>out.action.command="update"</tag></item>
 		<!-- XMLGenerator -->
 			
 		<!-- XMLGenerator -->

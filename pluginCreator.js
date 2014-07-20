@@ -12,10 +12,10 @@ try
 {
 	variables = require('./save/variables');
 	questions = require('./save/questions');
-	console.log("xmlCreator a trouvé les fichiers de save");
+	console.log("pluginCreator a trouvé les fichiers de save");
 }catch(e)
 {
-	console.log("xmlCreator n'a pas trouver les fichiers de save");
+	console.log("pluginCreator n'a pas trouver les fichiers de save");
 }
 
 exports.action = function(data, callback, config, SARAH)
@@ -248,7 +248,7 @@ function doAction(action, callback)
 
 function createXML()
 {
-	fs.readFile(__dirname+"/xmlGenerator.xml", 'utf8', function(err,data){
+	fs.readFile(__dirname+"/pluginCreator.xml", 'utf8', function(err,data){
 	    if(err) {
 	        console.log("Could not open file"+ err);
 	        return;
@@ -261,13 +261,13 @@ function createXML()
 	    data[1] = "\n"+XML+"\n";
 	    data = data.join("<!-- XMLGenerator -->");
 
-	    var resultSaveQuestion = fs.writeFile(__dirname+"/xmlGenerator.xml", data, function(oError) {
+	    var resultSaveQuestion = fs.writeFile(__dirname+"/pluginCreator.xml", data, function(oError) {
 	        if ((oError != null ? oError.code : void 0) === 'ENOENT') {
 	          return console.log("error: " + "The target folder doesn't exists or is not writeable !");
 	        } else if (oError != null) {
-	          return console.log("error: " +"Unknow error while writing file : ./xmlGenerator.xml");
+	          return console.log("error: " +"Unknow error while writing file : ./pluginCreator.xml");
 	        } else {
-	          return console.log("success: ./xmlGenerator.xml generated.");
+	          return console.log("success: ./pluginCreator.xml generated.");
 	        }
 	    });
 	});

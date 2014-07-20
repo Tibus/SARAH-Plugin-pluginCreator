@@ -18,15 +18,10 @@ try
 	console.log("xmlCreator n'a pas trouver les fichiers de save");
 }
 
-exports.init = function(SARAH)
-{
-	loadGoogleDocs(config.googleDoc, callback);
-}
-
 exports.action = function(data, callback, config, SARAH)
 {	
 	SarahAPI = SARAH;
-	config = config.modules.xmlGenerator;
+	config = config.modules.pluginCreator;
 	if(data.command == "update")
 	{	
 		loadGoogleDocs(config.googleDoc, callback);

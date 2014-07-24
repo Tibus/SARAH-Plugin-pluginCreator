@@ -19,6 +19,8 @@ Après chaques modifications, avant de vouloir mettre à jour le plugin Sarah, i
 Si c'est la première fois, cliquez sur le bouton "**Démarrer la publication**"
 Puis, à chaques modifications (même si la checkbox "Republier automatiquement après chaque modification" est cochée (Merci google, ça marche pas vos truc ;D), il faudra cliquer sur le bouton **Republier maintenant**.
 
+Il faut ensuite indiquer à SARAH de récupérer les modifications en lui disant `SARAH mets à jour le créateur de plugin`.
+
 ## Paramètrage du plugin
 Dans google docs, dans le panneau Fichier/Publier sur le Web, il va falloir récupérer l'url de publication au format "text brut". Pour cela, dans la partie basse du panneau, changer le mode d'export de "page Web" à "***TXT (texte brut)***".
 Ensuite, vous pouvez copier l'url du dessous et aller le mettre dans les paramètre du plugin Sarah dans la variable ***google Doc***

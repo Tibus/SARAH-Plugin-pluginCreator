@@ -41,7 +41,7 @@ function loadGoogleDocs(sSource, callback)
 		if (err || response.statusCode != 200)
 		{
 			if(callback)
-				return callback({"tts":"Erreur durant le chargement du fichier gouguelle"});
+				return callback({"tts":"Erreur durant le chargement du fichier gougueul"});
 			else
 				return console.log("PluginCreator : Erreur durant le chargement du fichier google");
 		}
@@ -50,9 +50,9 @@ function loadGoogleDocs(sSource, callback)
 		createXML();
 
 		if(callback)
-				return callback({"tts":"Le XML et les actions ont été mis à jours depuis le fichier gouguelle"});
+				return callback({"tts":"mis à jour depuis gougueul"});//Le XML et les actions ont été mis à jours depuis le fichier 
 			else
-				return console.log("PluginCreator : Le XML et les actions ont été mis à jours depuis le fichier google");
+				return console.log("PluginCreator : Le XML et les actions ont été mis à jours depuis le fichier gougueul");
 	});
 }
 
@@ -135,7 +135,7 @@ function parseAction(action)
 
 function executeAction(action, callback)
 {
-	console.log("action", action);
+	//console.log("action", action);
 	action.action = action.action.split(":");
 	var actionKey = action.action.shift().split(" ").join("");
 	var actionValue = action.action.join(":");
@@ -209,7 +209,7 @@ function executeAction(action, callback)
 		case "AskMe" :
 		{
 			actionValue = actionValue.split(":");
-			var questions = actionValue.shift();
+			var questions = actionValue.shift().split(';');
 			actionValue = actionValue.join(":");
 			
 			actionValue = actionValue.split("(");
@@ -241,12 +241,10 @@ function executeAction(action, callback)
 			var responsesString = {};
 			for (var i = 0; i < responses.length; i++)
 			{
-				responsesString[questions[i]] = i;
+				responsesString[responses[i]] = i;
 			};
-			
-			//executeAction({action:actions[0], callback:callbacks[0]});
-			
-			SarahAPI.askme(questions, responsesString, 2000, function(answer, end)
+					
+			SarahAPI.askme(questions, responsesString, 10000, function(answer, end)
 			{
 				if(answer == false) //si la réponse est false, réponse envoyé à la fin du timeout
 					answer = 0; // on mets la valeur 0 à la place
@@ -254,13 +252,15 @@ function executeAction(action, callback)
 				if(actions.length>answer) //si on a bien assez d'action pour trouver celle qui correspond à la réponds
 				{	
 					executeAction({action:actions[answer], callback:callbacks[answer]}, callback);
+					SarahAPI.speak(callbacks[answer], function(){
+						end(); // MUST be called when job done
+					});	
 				}else
 				{
-					callback();
+					end();
 				}
-				
-				end();
 			});
+			callback();
 			
 			break;
 		}
@@ -317,7 +317,7 @@ function groupToXML(group, actionID, indentation)
 	
 	if(group.name != "")
 	{
-		if(group.variables != "" || group.action != "")
+		if(group.variables != "" || group.action != "" || group.callback != "")
 			asAction = true;
 		
 		if(group.child.length>0)

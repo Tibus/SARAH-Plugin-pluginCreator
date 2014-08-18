@@ -147,18 +147,19 @@ Et pour l'utiliser dans une requète par exemple : ```url : $$domoticzURL/?id=@l
 Le même principe que les variables global mais par ligne. Une colonne Variable est destiné à la création de variable par ligne. les varaibles doivent être des clé/valeurs séparé par un egal. Vous pouvez définir plusieur variable avec un point-virgule. par exemple ```lid=1; level=100```
 
 ### Gestion des callbacks
-Comme les variables local, une colonne sert au callback exprimé par le client Sarah à l'appel de la ligne.
+Comme les variables local, une colonne sert au callback exprimé par le client Sarah à l'appel de la ligne. On peut définir plusieurs réponses possible. Le plugin choisira aléatoirement parmis les différentes possibilités. Pour cela, vous pouvez séparé les possibilités par des point-virgules ou par des pipes (|). (le mieu étant les | qui marchent aussi dans les callback de Askme,...
+
 Par exemple, dans ce tableau : 
 
 | Group         | SubGroup      | SubGroup  | CallBack |
 | ------------- |:-------------:|:---------:|:--------:|
 | Allume la lampe |  |  | |
-| | du salon | -- | lampe du salon allumée |
+| | du salon | -- | lampe du salon allumée; Je l'ai fait; D'accord, c'est fait; Comme tu voudras... |
 | |  | à 0 pourcent  | lampe allumée à 0 pourcent |
 | |  | à 10 pourcent  | lampe allumée à 0 pourcent |
 | | de la chambre |  | lampe de la chambre allumée |
 
-si je dis Allume la lampe de la chambre, Sarah dira "lampe de la chambre allumée
+si je dis Allume la lampe de la chambre, Sarah dira "lampe de la chambre allumée" ou "Je l'ai Fait" ou "D'accord, c'est fait" ou encore "Comme tu voudras..."
 
 ### Hierarchie des actions, des variables et des callbacks
 Les actions, les variables et les callbacks ont une hiérarchie simple...

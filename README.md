@@ -85,7 +85,8 @@ Chaque ligne/group/sous group peut avoir une action
  * Envoi d'une requete HTTP/HTTPS,...
  * Appel d'un autre plugin Sarah
  * Appel de la fonction askme pour demander confirmation ou précision et appeler une action en fonction de la réponse.
-
+ * Appel d'un script ou d'un programme externe
+ 
 Une colonne ***Action*** permet de spécifier l'action propre à un groupe ou à une seul proposition :
 
 #### Creer une action de requète HTTP
@@ -123,6 +124,14 @@ askme :
 ```
 
 ***Au timeout de la fonction askme, si aucune réponse n'est donné par l'utilisateur, c'est la première action qui sera appelée***
+
+#### Appeler un script ou un programme externe
+Entrez dans la colonne d'action le mot clé ```exec : ``` suivi du chemin complet de lancement du script ou du .exe. Certain chemins ne fonctionnent pas. (notament, peut-être les .exe dans C: mais cela reste à confirmer et je ne sais pas pourquoi... ;D)
+par exemple pour lancer un curl externe on fera : 
+
+```
+exec : C:\Users\julien.delnatte\Documents\curl.exe http://localhost:8888/?tts=coucou
+```
 
 ### Gestion des variables
 Vous pouvez utiliser des variables dans les actions et/ou dans les Callback.

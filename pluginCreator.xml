@@ -7,8 +7,100 @@
 		<one-of>
 			<item>mets a jour le créateur de plugin<tag>out.action.command="update"</tag></item>
 		<!-- XMLGenerator -->
-			
-		<!-- XMLGenerator -->
+
+			<item>
+				<one-of>
+					<item>
+						<item><tag>out.action.command="0_0"</tag>
+							<one-of>
+								<item>Allume les lumières</item>
+								<item> Allume la lampe</item>
+								<item> Allume la lumière</item>
+							</one-of>
+						</item>
+						<one-of>
+							<item>
+								<item>du salon<tag>out.action.command="0_0_0"</tag></item>
+								<item repeat="0-1">
+									<one-of>
+										<item>
+											à zéro pourcent<tag>out.action.command="0_0_0_1"</tag>
+										</item>
+										<item>
+											à dix pourcent<tag>out.action.command="0_0_0_2"</tag>
+										</item>
+										<item>
+											à vingt pourcent<tag>out.action.command="0_0_0_3"</tag>
+										</item>
+										<item>
+											à trente pourcent<tag>out.action.command="0_0_0_4"</tag>
+										</item>
+										<item>
+											à quarante pourcent<tag>out.action.command="0_0_0_5"</tag>
+										</item>
+										<item>
+											à cinquante pourcent<tag>out.action.command="0_0_0_6"</tag>
+										</item>
+										<item>
+											à soixante pourcent<tag>out.action.command="0_0_0_7"</tag>
+										</item>
+										<item>
+											à septente pourcent<tag>out.action.command="0_0_0_8"</tag>
+										</item>
+										<item>
+											à quatre-vingt pourcent<tag>out.action.command="0_0_0_9"</tag>
+										</item>
+										<item>
+											à nonante pourcent<tag>out.action.command="0_0_0_10"</tag>
+										</item>
+										<item>
+											à cent pourcent<tag>out.action.command="0_0_0_11"</tag>
+										</item>
+									</one-of>
+								</item>
+							</item>
+							<item>
+								de la chambre
+							</item>
+							<item>
+								de la cuisine<tag>out.action.command="0_0_2"</tag>
+							</item>
+							<item>
+								des escaliers<tag>out.action.command="0_0_3"</tag>
+							</item>
+						</one-of>
+					</item>
+					<item>
+						<item><tag>out.action.command="0_1"</tag>
+							<one-of>
+								<item>Eteind la lumière</item>
+								<item> Eteind la lampe</item>
+							</one-of>
+						</item>
+						<one-of>
+							<item>
+								du salon<tag>out.action.command="0_1_0"</tag>
+							</item>
+							<item>
+								de la chambre<tag>out.action.command="0_1_1"</tag>
+							</item>
+							<item>
+								de la cuisine<tag>out.action.command="0_1_2"</tag>
+							</item>
+							<item>
+								des escaliers<tag>out.action.command="0_1_3"</tag>
+							</item>
+						</one-of>
+					</item>
+					<item>
+						Eteind toutes les lumières<tag>out.action.command="0_2"</tag>
+					</item>
+					<item>
+						test homeseer<tag>out.action.command="0_3"</tag>
+					</item>
+				</one-of>
+			</item>
+<!-- XMLGenerator -->
 		</one-of>
 	</rule>
 </grammar>

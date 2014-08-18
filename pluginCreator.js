@@ -1,5 +1,6 @@
 var DEBUG = false;
 var fs, request, XML;
+var exec = require('child_process').exec;
 
 fs = require('fs');
 request = require('request');
@@ -139,14 +140,39 @@ function executeAction(action, callback)
 	var actionKey = action.action.shift().split(" ").join("");
 	var actionValue = action.action.join(":");
 	var actionCallback = action.callback;
-
+	if(actionCallback.indexOf(";")>-1)
+	{
+		actionCallback = actionCallback.split(";");
+		actionCallback = actionCallback[Math.ceil(Math.random() * actionCallback.length) -1];
+	}else if(actionCallback.indexOf("|")>-1)
+	{
+		actionCallback = actionCallback.split("|");
+		actionCallback = actionCallback[Math.ceil(Math.random() * actionCallback.length) -1];
+	}
+	
 	log("callback : "+actionCallback);
+	
 	switch(actionKey)
 	{
 		case "" :
 		case " " :
 		{
 			return callback({"tts":actionCallback});
+		}
+		case "exec" :
+		case "script" :
+		{
+			console.log("run : "+actionValue);
+			exec(actionValue, function (error, stdout, stderr) {
+				if (error !== null)
+				{
+					console.log(error);
+					return callback({"tts":"j'ai rencontré une erreur en lancant le script"});
+				}
+				return callback({"tts":actionCallback});
+			});
+			//return callback({"tts":actionCallback});
+			break
 		}
 		case "url" :
 		case "http" :

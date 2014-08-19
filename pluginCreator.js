@@ -419,7 +419,7 @@ function parseCSV(sRawCSVData)
 		{
 			variablesMode = true;
 			continue;
-		}else if(ligne[0] == "Questions" || ligne[0] == "Questions")
+		}else if(ligne[0] == "Questions" || ligne[0] == "Question" || ligne[0] == "Group")
 		{
 			variablesMode = false;
 			questionsMode = true;

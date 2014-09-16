@@ -46,7 +46,7 @@ function loadGoogleDocs(sSource, callback)
 	
 	if(isLocalFile)
 	{
-		fs.readFile(__dirname+"/"+sSource, 'binary', function(err,data)
+		fs.readFile(localPath, 'binary', function(err,data)
 		{
 			if (err)
 			{

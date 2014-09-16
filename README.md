@@ -90,7 +90,8 @@ Chaque ligne/group/sous group peut avoir une action
  * Envoi d'une requete HTTP/HTTPS,...
  * Appel d'un autre plugin Sarah
  * Appel de la fonction askme pour demander confirmation ou précision et appeler une action en fonction de la réponse.
-
+ * Appel d'un script ou d'un programme externe
+ 
 Une colonne ***Action*** permet de spécifier l'action propre à un groupe ou à une seul proposition :
 
 #### Creer une action de requète HTTP
@@ -129,6 +130,14 @@ askme :
 
 ***Au timeout de la fonction askme, si aucune réponse n'est donné par l'utilisateur, c'est la première action qui sera appelée***
 
+#### Appeler un script ou un programme externe
+Entrez dans la colonne d'action le mot clé ```exec : ``` suivi du chemin complet de lancement du script ou du .exe. Certain chemins ne fonctionnent pas. (notament, peut-être les .exe dans C: mais cela reste à confirmer et je ne sais pas pourquoi... ;D)
+par exemple pour lancer un curl externe on fera : 
+
+```
+exec : C:\Users\julien.delnatte\Documents\curl.exe http://localhost:8888/?tts=coucou
+```
+
 ### Gestion des variables
 Vous pouvez utiliser des variables dans les actions et/ou dans les Callback.
 A chaque envoi d'une action ou d'un callback, le plugin cherchera chaque variable et la remplacera par sa valeur.
@@ -152,18 +161,19 @@ Et pour l'utiliser dans une requète par exemple : ```url : $$domoticzURL/?id=@l
 Le même principe que les variables global mais par ligne. Une colonne Variable est destiné à la création de variable par ligne. les varaibles doivent être des clé/valeurs séparé par un egal. Vous pouvez définir plusieur variable avec un point-virgule. par exemple ```lid=1; level=100```
 
 ### Gestion des callbacks
-Comme les variables local, une colonne sert au callback exprimé par le client Sarah à l'appel de la ligne.
+Comme les variables local, une colonne sert au callback exprimé par le client Sarah à l'appel de la ligne. On peut définir plusieurs réponses possible. Le plugin choisira aléatoirement parmis les différentes possibilités. Pour cela, vous pouvez séparé les possibilités par des point-virgules ou par des pipes (|). (le mieu étant les | qui marchent aussi dans les callback de Askme,...
+
 Par exemple, dans ce tableau : 
 
 | Group         | SubGroup      | SubGroup  | CallBack |
 | ------------- |:-------------:|:---------:|:--------:|
 | Allume la lampe |  |  | |
-| | du salon | -- | lampe du salon allumée |
+| | du salon | -- | lampe du salon allumée; Je l'ai fait; D'accord, c'est fait; Comme tu voudras... |
 | |  | à 0 pourcent  | lampe allumée à 0 pourcent |
 | |  | à 10 pourcent  | lampe allumée à 0 pourcent |
 | | de la chambre |  | lampe de la chambre allumée |
 
-si je dis Allume la lampe de la chambre, Sarah dira "lampe de la chambre allumée
+si je dis Allume la lampe de la chambre, Sarah dira "lampe de la chambre allumée" ou "Je l'ai Fait" ou "D'accord, c'est fait" ou encore "Comme tu voudras..."
 
 ### Hierarchie des actions, des variables et des callbacks
 Les actions, les variables et les callbacks ont une hiérarchie simple...

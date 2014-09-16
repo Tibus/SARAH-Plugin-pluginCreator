@@ -7,8 +7,8 @@
 		<one-of>
 			<item>mets a jour le créateur de plugin<tag>out.action.command="update"</tag></item>
 		<!-- XMLGenerator -->
-			
-		<!-- XMLGenerator -->
+
+<!-- XMLGenerator -->
 		</one-of>
 	</rule>
 </grammar>

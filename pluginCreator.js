@@ -46,7 +46,7 @@ function loadGoogleDocs(sSource, callback)
 	
 	if(isLocalFile)
 	{
-		fs.readFile(__dirname+"/"+sSource, 'utf8', function(err,data)
+		fs.readFile(__dirname+"/"+sSource, 'binary', function(err,data)
 		{
 			if (err)
 			{
@@ -477,6 +477,12 @@ function parseCSV(sRawCSVData)
 				groupAction = ligne[6];
 				if(ligne[1]!="" && ligne[1]!="--")
 					groupVariables = groupAction = "";
+				
+				if(ligne[0][0] == "\"")
+					ligne[0] = ligne[0].slice(1);
+				if(ligne[0][ligne[0].length-1] == "\"")
+					ligne[0] = ligne[0].slice(0,-1);
+				
 				group.push({name:ligne[0].split(";"), variables: groupVariables, action:groupAction, callback:ligne[8], child:[]});
 			}
 			if(ligne[1]!="")
@@ -487,6 +493,10 @@ function parseCSV(sRawCSVData)
 				groupAction = ligne[6];
 				if(ligne[2]!="" && ligne[2]!="--")
 					groupVariables = groupAction = "";
+				if(ligne[1][0] == "\"")
+					ligne[1] = ligne[1].slice(1);
+				if(ligne[1][ligne[1].length-1] == "\"")
+					ligne[1] = ligne[1].slice(0,-1);
 				group.push({name:ligne[1].split(";"), variables: groupVariables, action:groupAction, callback:ligne[8],child:[]});
 			}
 			if(ligne[2]!="")
@@ -497,6 +507,10 @@ function parseCSV(sRawCSVData)
 				groupAction = ligne[6];
 				if(ligne[3]!="" && ligne[3]!="--")
 					groupVariables = groupAction = "";
+				if(ligne[2][0] == "\"")
+					ligne[2] = ligne[2].slice(1);
+				if(ligne[2][ligne[2].length-1] == "\"")
+					ligne[2] = ligne[2].slice(0,-1);
 				group.push({name:ligne[2].split(";"), variables: groupVariables, action:groupAction, callback:ligne[8],child:[]});
 			}
 			if(ligne[3]!="")
@@ -507,6 +521,10 @@ function parseCSV(sRawCSVData)
 				groupAction = ligne[6];
 				if(ligne[4]!="" && ligne[4]!="--")
 					groupVariables = groupAction = "";
+				if(ligne[3][0] == "\"")
+					ligne[3] = ligne[3].slice(1);
+				if(ligne[3][ligne[3].length-1] == "\"")
+					ligne[3] = ligne[3].slice(0,-1);
 				group.push({name:ligne[3].split(";"), variables: groupVariables, action:groupAction, callback:ligne[8],child:[]});
 			}
 			if(ligne[4]!="")
@@ -517,6 +535,10 @@ function parseCSV(sRawCSVData)
 				groupAction = ligne[6];
 				if(ligne[5]!="" && ligne[5]!="--")
 					groupVariables = groupAction = "";
+				if(ligne[4][0] == "\"")
+					ligne[4] = ligne[4].slice(1);
+				if(ligne[4][ligne[4].length-1] == "\"")
+					ligne[4] = ligne[4].slice(0,-1);
 				group.push({name:ligne[4].split(";"), variables: groupVariables, action:groupAction, callback:ligne[8],child:[]});
 			}
 			if(ligne[5]!="")
@@ -525,6 +547,10 @@ function parseCSV(sRawCSVData)
 				currentGroup5 = group.length;
 				groupVariables = ligne[7];
 				groupAction = ligne[6];
+				if(ligne[5][0] == "\"")
+					ligne[5] = ligne[5].slice(1);
+				if(ligne[5][ligne[5].length-1] == "\"")
+					ligne[5] = ligne[5].slice(0,-1);
 				group.push({name:ligne[5].split(";"), variables: groupVariables, action:groupAction, callback:ligne[8],child:[]});
 			}
 		}

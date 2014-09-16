@@ -1,0 +1,29 @@
+Variables								
+domoticz	http://localhost:8080/sarah/parle?phrase=							
+$$curlExe	C:\Users\julien.delnatte\Documents\curl.exe							
+Questions								
+Group	SubGroup	SubGroup	SubGroup	SubGroup	SubGroup	Action	Variable	Callback
+"Allume les lumières;Allume la lampe;Allume la lumière"						url : domoticz coucou | url : domoticz ça va?		Lampe allumée
+	du salon	--				url : domoticz/?id=lid&lev=level	"lid=1; level=100"	Lampe du Salon allumée| Je l'ai fait| C'est bon| OK
+		à zéro pourcent					level=0	Lampe du Salon allumée à level pourcents
+		à dix pourcent					level=10	Lampe du Salon allumée à level pourcents
+		à vingt pourcent					level=20	Lampe du Salon allumée à level pourcents
+		à trente pourcent					level=30	Lampe du Salon allumée à level pourcents
+		à quarante pourcent					level=40	Lampe du Salon allumée à level pourcents
+		à cinquante pourcent					level=50	Lampe du Salon allumée à level pourcents
+		à soixante pourcent					level=60	Lampe du Salon allumée à level pourcents
+		à septente pourcent					level=70	Lampe du Salon allumée à septente pourcents
+		à quatre-vingt pourcent					level=80	Lampe du Salon allumée à level pourcents
+		à nonante pourcent					level=90	Lampe du Salon allumée à nonante pourcents
+		à cent pourcent					level=100	Lampe du Salon allumée à level pourcents
+	dans les chambres						lid=1	
+	de la chambre						lid=2	
+	de la cuisine						lid=3	
+	des escaliers						lid=4	
+"Eteind la lumière; Eteind la lampe"						"plugin : eedomus : {""periphId"": $$id, ""periphValue"":100, ""quiet"":true}"		J'ai éteinds la lumière $$lum
+	du salon						"$$id=1; $$lum=du salon"	
+	de la chambre						"$$id=2; $$lum=de la chambre"	
+	de la cuisine						"$$id=3; $$lum=de la cuisine"	
+	des escaliers						"$$id=4; $$lum=des escaliers"	
+Eteind toutes les lumières						"askme : êtes-vous sur de vouloir éteindre toutes les lumières : (non merci Sarah;oui merci Sarah) : ( ; ) :(ok, je ne le fais pas; j'ai éteinds toutes les lumières)"		
+test homeseer						exec : $$curlExe http://localhost:8888/?tts=coucou		

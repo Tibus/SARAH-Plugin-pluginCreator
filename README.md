@@ -1,8 +1,13 @@
 SARAH-Plugin-PluginCreator
 ==========================
 
-Plugin de création de phrases/actions depuis un fichier excel sur google docs
+Plugin de création de phrases/actions depuis un fichier excel en local ou sur google docs
 
+## Création du fichier local
+Il n'y a rien à faire a part ouvrir le fichier Document.txt dans excel (sisi, promis ;D)
+
+Quand vous modifier le document, faites-bien attention de ne pas avoir de retour à la ligne à l'intérieur des cases!
+Il faut ensuite indiquer à SARAH de récupérer les modifications en lui disant `SARAH mets à jour le créateur de plugin`.
 
 ## Création du fichier Google Docs
 
@@ -11,7 +16,7 @@ Tout d'abord, il vous faut creer un fichier excel dans google Docs.
 https://docs.google.com/spreadsheet/ccc?key=0AmgsAcIbiLOtdGhjX1cxWkxEaEtXMVctNjBJY043ZkE&usp=drive_web#gid=0
 )
 
-## Sauvegarde du fichiers
+### Sauvegarde du fichiers
 
 Après chaques modifications, avant de vouloir mettre à jour le plugin Sarah, il va falloir "publier le fichier sur le web". (Pas d'inquiétude, c'est juste pour que le plugin puisse le téléchargé mais il ne se retrouvera pas en publique sur le net ;D).
 
@@ -21,7 +26,7 @@ Puis, à chaques modifications (même si la checkbox "Republier automatiquement 
 
 Il faut ensuite indiquer à SARAH de récupérer les modifications en lui disant `SARAH mets à jour le créateur de plugin`.
 
-## Paramètrage du plugin
+### Paramètrage du plugin
 Dans google docs, dans le panneau Fichier/Publier sur le Web, il va falloir récupérer l'url de publication au format "text brut". Pour cela, dans la partie basse du panneau, changer le mode d'export de "page Web" à "***TXT (texte brut)***".
 Ensuite, vous pouvez copier l'url du dessous et aller le mettre dans les paramètre du plugin Sarah dans la variable ***google Doc***
 

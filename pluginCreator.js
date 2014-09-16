@@ -1,5 +1,6 @@
 var DEBUG = false;
 var fs, request, XML;
+var exec = require('child_process').exec;
 
 fs = require('fs');
 request = require('request');
@@ -35,24 +36,56 @@ exports.action = function(data, callback, config, SARAH)
 function loadGoogleDocs(sSource, callback)
 {
 	log(sSource);
-	request({ 'uri' : sSource }, function (err, response, body)
+	var localPath = __dirname+"/"+sSource;
+	var isLocalFile = fs.existsSync(localPath);
+	if(isLocalFile == false)
 	{
-		if (err || response.statusCode != 200)
+		localPath = sSource;
+		isLocalFile = fs.existsSync(localPath);
+	}
+	
+	if(isLocalFile)
+	{
+		fs.readFile(__dirname+"/"+sSource, 'utf8', function(err,data)
 		{
-			if(callback)
-				return callback({"tts":"Erreur durant le chargement du fichier gougueul"});
-			else
-				return console.log("PluginCreator : Erreur durant le chargement du fichier google");
-		}
+			if (err)
+			{
+				if(callback)
+					return callback({"tts":"Erreur durant le chargement du fichier gouguelle"});
+				else
+					return console.log("PluginCreator : Erreur durant le chargement du fichier google");
+			}
+			
+			loadedFileHandler(data, callback);
+		});
+	}
+	else
+	{
+		request({ 'uri' : sSource }, function (err, response, body)
+		{
+			if (err || response.statusCode != 200)
+			{
+				console.log("PluginCreator : Erreur durant le chargement du fichier google");
+				if(callback)
+					return callback({"tts":"Erreur durant le chargement du fichier gouguelle"});
+				else
+					return console.log("PluginCreator : Erreur durant le chargement du fichier google");
+			}
 
-		parseCSV(body);
-		createXML();
+			loadedFileHandler(body, callback);
+		});
+	}
+}
 
-		if(callback)
-				return callback({"tts":"mis à jour depuis gougueul"});//Le XML et les actions ont été mis à jours depuis le fichier 
-			else
-				return console.log("PluginCreator : Le XML et les actions ont été mis à jours depuis le fichier gougueul");
-	});
+function loadedFileHandler(data, callback)
+{
+	parseCSV(data);
+	createXML();
+
+	if(callback)
+			return callback({"tts":"Le XML et les actions ont été mis à jours depuis le fichier"});
+		else
+			return console.log("PluginCreator : Le XML et les actions ont été mis à jours depuis le fichier");
 }
 
 function parseAction(action)
@@ -139,14 +172,39 @@ function executeAction(action, callback)
 	var actionKey = action.action.shift().split(" ").join("");
 	var actionValue = action.action.join(":");
 	var actionCallback = action.callback;
-
+	if(actionCallback.indexOf(";")>-1)
+	{
+		actionCallback = actionCallback.split(";");
+		actionCallback = actionCallback[Math.ceil(Math.random() * actionCallback.length) -1];
+	}else if(actionCallback.indexOf("|")>-1)
+	{
+		actionCallback = actionCallback.split("|");
+		actionCallback = actionCallback[Math.ceil(Math.random() * actionCallback.length) -1];
+	}
+	
 	log("callback : "+actionCallback);
+	
 	switch(actionKey)
 	{
 		case "" :
 		case " " :
 		{
 			return callback({"tts":actionCallback});
+		}
+		case "exec" :
+		case "script" :
+		{
+			console.log("run : "+actionValue);
+			exec(actionValue, function (error, stdout, stderr) {
+				if (error !== null)
+				{
+					console.log(error);
+					return callback({"tts":"j'ai rencontré une erreur en lancant le script"});
+				}
+				return callback({"tts":actionCallback});
+			});
+			//return callback({"tts":actionCallback});
+			break
 		}
 		case "url" :
 		case "http" :
@@ -183,7 +241,7 @@ function executeAction(action, callback)
 		case "AskMe" :
 		{
 			actionValue = actionValue.split(":");
-			var questions = actionValue.shift().split(';');
+			var questions = actionValue.shift();
 			actionValue = actionValue.join(":");
 			
 			actionValue = actionValue.split("(");
@@ -215,10 +273,12 @@ function executeAction(action, callback)
 			var responsesString = {};
 			for (var i = 0; i < responses.length; i++)
 			{
-				responsesString[responses[i]] = i;
+				responsesString[questions[i]] = i;
 			};
-					
-			SarahAPI.askme(questions, responsesString, 10000, function(answer, end)
+			
+			//executeAction({action:actions[0], callback:callbacks[0]});
+			
+			SarahAPI.askme(questions, responsesString, 2000, function(answer, end)
 			{
 				if(answer == false) //si la réponse est false, réponse envoyé à la fin du timeout
 					answer = 0; // on mets la valeur 0 à la place
@@ -226,15 +286,13 @@ function executeAction(action, callback)
 				if(actions.length>answer) //si on a bien assez d'action pour trouver celle qui correspond à la réponds
 				{	
 					executeAction({action:actions[answer], callback:callbacks[answer]}, callback);
-					SarahAPI.speak(callbacks[answer], function(){
-						end(); // MUST be called when job done
-					});	
 				}else
 				{
-					end();
+					callback();
 				}
+				
+				end();
 			});
-			callback();
 			
 			break;
 		}
@@ -291,7 +349,7 @@ function groupToXML(group, actionID, indentation)
 	
 	if(group.name != "")
 	{
-		if(group.variables != "" || group.action != "" || group.callback != "")
+		if(group.variables != "" || group.action != "")
 			asAction = true;
 		
 		if(group.child.length>0)
@@ -386,14 +444,17 @@ function parseCSV(sRawCSVData)
 	var aParsedData, ligne, group, groupVariables,groupAction, currentGroup0, currentGroup1, currentGroup2, currentGroup3,currentGroup4,currentGroup5, variablesMode = false, questionsMode = false;
 	aParsedData = sRawCSVData.split("\n");
 	questions = {name:"", variables:"", action:"", callback:"", child:[]};
+	
 	for(var i = 0; i< aParsedData.length; i++)
 	{
-		ligne = aParsedData[i].split("\t");
+		ligne = aParsedData[i].split("\r").join("");
+		ligne = ligne.split("\t");
+
 		if(ligne[0] == "Variables" || ligne[0] == "Variable")
 		{
 			variablesMode = true;
 			continue;
-		}else if(ligne[0] == "Questions" || ligne[0] == "Questions")
+		}else if(ligne[0] == "Questions" || ligne[0] == "Question" || ligne[0] == "Group")
 		{
 			variablesMode = false;
 			questionsMode = true;
@@ -406,7 +467,7 @@ function parseCSV(sRawCSVData)
 		}
 		else if(questionsMode)
 		{
-			if(ligne[0]=="Group")
+			if(ligne[0]=="Group" || (ligne.length==1 && ligne[0] == ""))
 				continue;
 			if(ligne[0]!="")
 			{

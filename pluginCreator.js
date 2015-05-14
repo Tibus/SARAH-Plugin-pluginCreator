@@ -273,27 +273,27 @@ function executeAction(action, callback)
 			var responsesString = {};
 			for (var i = 0; i < responses.length; i++)
 			{
-				responsesString[questions[i]] = i;
+				responsesString[responses[i]] = i;
 			};
 			
 			//executeAction({action:actions[0], callback:callbacks[0]});
 			
-			SarahAPI.askme(questions, responsesString, 2000, function(answer, end)
+			SarahAPI.askme(questions, responsesString, 10000, function(answer, end)
 			{
 				if(answer == false) //si la réponse est false, réponse envoyé à la fin du timeout
 					answer = 0; // on mets la valeur 0 à la place
 				answer = parseInt(answer);
-				if(actions.length>answer) //si on a bien assez d'action pour trouver celle qui correspond à la réponds
+				if(actions.length>answer) //si on a bien assez d'action pour trouver celle qui correspond à la réponse
 				{	
-					executeAction({action:actions[answer], callback:callbacks[answer]}, callback);
+					executeAction({action:actions[answer], callback:callbacks[answer]}, function() {SarahAPI.speak(callbacks[answer])});
 				}else
 				{
-					callback();
+					//callback();
 				}
 				
 				end();
 			});
-			
+					callback();
 			break;
 		}
 	}

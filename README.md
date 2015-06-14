@@ -27,8 +27,12 @@ Puis, à chaques modifications (même si la checkbox "Republier automatiquement 
 Il faut ensuite indiquer à SARAH de récupérer les modifications en lui disant `SARAH mets à jour le créateur de plugin`.
 
 ### Paramètrage du plugin
-Dans google docs, dans le panneau Fichier/Publier sur le Web, il va falloir récupérer l'url de publication au format "text brut". Pour cela, dans la partie basse du panneau, changer le mode d'export de "page Web" à "***TXT (texte brut)***".
-Ensuite, vous pouvez copier l'url du dessous et aller le mettre dans les paramètre du plugin Sarah dans la variable ***google Doc***
+Dans google docs, dans le panneau Fichier/Publier sur le Web, il va falloir récupérer l'url de publication au format "tsv". Pour cela, quelques petites manipulations sont nécessaires : 
+- Dans ce même panneau ""publier sur le Web"" récupérez l'adresse de publication qui devrai ressembler à : 
+https://docs.google.com/spreadsheets/d/**XXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX**/pubhtml
+- Comme vous l'aurez compris, les **XXX** donne l'id du document. Récupérez la et insérez la dans l'url suivante : 
+https://docs.google.com/spreadsheet/pub?key=**XXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX**&output=tsv
+- Ensuite, vous pouvez copier l'url et aller le mettre dans les paramètre du plugin Sarah dans la variable ***google Doc***
 
 ## Edition du Document
 

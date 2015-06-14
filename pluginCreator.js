@@ -215,7 +215,7 @@ function executeAction(action, callback)
 			{
 				if (err || response.statusCode != 200)
 				{
-					console.log(err+" ,"+response.statusCode);
+					console.log(err);
 					return callback({"tts":"L'action n'as pas pu être exécutée..."});
 				}
 				
